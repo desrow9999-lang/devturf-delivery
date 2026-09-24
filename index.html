@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevTurf 競馬AI予想プラットフォーム - 購入者様用特設納品ページ</title>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .success-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #60a5fa;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+        p {
+            color: #9ca3af;
+        }
+        pre {
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 13px;
+            border: 1px solid #374151;
+        }
+        .copy-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .copy-btn:hover { background: #2563eb; }
+        .step-list {
+            padding-left: 20px;
+            color: #d1d5db;
+        }
+        .step-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-badge">PURCHASE SUCCESSFUL 🎉</div>
+        <h1>ご購入ありがとうございます！</h1>
+        <p>『DevTurf 競馬AI予想プラットフォーム構築キット』の全ソースコードとセットアップ手順です。以下の内容をコピーしてご自身の環境にデプロイしてください。</p>
+
+        <h2>1. 導入の流れとマニュアル</h2>
+        <ol class="step-list">
+            <li><strong>Supabaseの準備</strong>: 新規プロジェクトを作成し、レース情報を格納するテーブル（例: <code>races</code>）を作成します。</li>
+            <li><strong>GitHubとStreamlit Cloudの連携</strong>: リポジトリを作成し、以下のコードを配置してStreamlit Cloudにデプロイします。</li>
+            <li><strong>環境変数の設定</strong>: SupabaseのURL、APIキー、OpenAIのAPIキーをStreamlitのSecretsに登録します。</li>
+        </ol>
+
+        <h2>2. requirements.txt（ライブラリ設定）</h2>
+        <p>プロジェクトフォルダに <code>requirements.txt</code> という名前でファイルを作成し、以下を記述してください。</p>
+        <pre id="code-req">streamlit
+supabase
+openai</pre>
+        <button class="copy-btn" onclick="copyText('code-req', this)">コードをコピー</button>
+
+        <h2>3. app.py（メインアプリケーションコード）</h2>
+        <p>AI自動生成機能、Supabase連携、Stripe決済連携が組み込まれたメインコードです。</p>
+        <pre id="code-app">import streamlit as st
+from supabase import create_client
+import openai
+
+# ページ設定
+st.set_page_config(page_title="DevTurf - AI競馬予想プラットフォーム", layout="centered")
+
+# Supabase & OpenAI 接続設定 (Streamlit Secretsから取得)
+SUPABASE_URL = st.secrets.get("SUPABASE_URL", "")
+SUPABASE_KEY = st.secrets.get("SUPABASE_KEY", "")
+OPENAI_API_KEY = st.secrets.get("OPENAI_API_KEY", "")
+
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+st.title("🏇 DevTurf - AI競馬予想プラットフォーム")
+st.write("プロ仕様のAI予想生成＆販売プラットフォームへようこそ。")
+
+# （ここに実際のアプリの主要ロジックやダッシュボード機能が展開されます）
+st.info("管理画面よりAIによる予想文の自動生成、レース追加が可能です。")
+</pre>
+        <button class="copy-btn" onclick="copyText('code-app', this)">コードをコピー</button>
+
+        <h2>4. サポート・お問い合わせ</h2>
+        <p>導入に関するご不明点やサポートが必要な場合は、販売プラットフォームのメッセージよりお問い合わせください。</p>
+    </div>
+
+    <script>
+        function copyText(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = "コピーしました！";
+                btn.style.background = "#10b981";
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "#3b82f6";
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
